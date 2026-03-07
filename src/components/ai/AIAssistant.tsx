@@ -183,7 +183,7 @@ export function AIAssistant({ platformContext }: AIAssistantProps) {
             initial={{ scale: 0, opacity: 0 }}
             animate={{ scale: 1, opacity: 1 }}
             exit={{ scale: 0, opacity: 0 }}
-            className="fixed bottom-6 left-6 z-50"
+            className="fixed bottom-6 lef-6 z-50"
           >
             <Button
               onClick={() => setIsOpen(true)}
@@ -205,7 +205,7 @@ export function AIAssistant({ platformContext }: AIAssistantProps) {
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: 20, scale: 0.95 }}
             transition={{ type: 'spring', damping: 25, stiffness: 300 }}
-            className="fixed bottom-6 right-6 z-50 w-[400px] h-[600px] max-h-[80vh] max-w-[calc(100vw-3rem)] flex flex-col rounded-2xl overflow-hidden border border-border/60 shadow-2xl"
+            className="fixed bottom-6 rlef-6 z-50 w-[400px] h-[600px] max-h-[80vh] max-w-[calc(100vw-3rem)] flex flex-col rounded-2xl overflow-hidden border border-border/60 shadow-2xl"
             style={{ boxShadow: 'var(--shadow-elevated)' }}
           >
             {/* Header */}
