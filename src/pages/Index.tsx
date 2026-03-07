@@ -119,6 +119,14 @@ function AppContent() {
       />
 
       {!showHero && <AIAssistant platformContext={platformContext} />}
+
+      <NotificationBell
+        notifications={notifications}
+        unreadCount={unreadCount}
+        onMarkAsRead={markAsRead}
+        onMarkAllAsRead={markAllAsRead}
+        onClearAll={clearAll}
+      />
     </div>
   );
 }
