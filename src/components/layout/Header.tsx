@@ -81,14 +81,6 @@ export function Header({ searchQuery, setSearchQuery, user }: HeaderProps) {
         <div className="flex items-center gap-2">
           <ThemeToggle />
           
-          <NotificationBell
-            notifications={notifications}
-            unreadCount={unreadCount}
-            onMarkAsRead={markAsRead}
-            onMarkAllAsRead={markAllAsRead}
-            onClearAll={clearAll}
-          />
-          
           {user ? (
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
