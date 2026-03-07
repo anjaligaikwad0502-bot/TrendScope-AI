@@ -8,7 +8,6 @@ import { ContentFeed } from '@/components/content/ContentFeed';
 import { AnalyticsDashboard } from '@/components/analytics/AnalyticsDashboard';
 import { AuthModal } from '@/components/auth/AuthModal';
 import { AIAssistant } from '@/components/ai/AIAssistant';
-import { NotificationBell } from '@/components/notifications/NotificationBell';
 import { ThemeProvider } from '@/lib/theme';
 import { supabase } from '@/integrations/supabase/client';
 import { contentApi } from '@/lib/api/content';
@@ -103,7 +102,16 @@ function AppContent() {
 
   return (
     <div className="min-h-screen bg-background">
-      <Header searchQuery={searchQuery} setSearchQuery={setSearchQuery} user={user} />
+      <Header
+        searchQuery={searchQuery}
+        setSearchQuery={setSearchQuery}
+        user={user}
+        notifications={notifications}
+        unreadCount={unreadCount}
+        onMarkAsRead={markAsRead}
+        onMarkAllAsRead={markAllAsRead}
+        onClearAll={clearAll}
+      />
       
       {showHero ? (
         <HeroSection onExplore={handleExplore} />
@@ -132,14 +140,6 @@ function AppContent() {
       />
 
       {!showHero && <AIAssistant platformContext={platformContext} />}
-
-      <NotificationBell
-        notifications={notifications}
-        unreadCount={unreadCount}
-        onMarkAsRead={markAsRead}
-        onMarkAllAsRead={markAllAsRead}
-        onClearAll={clearAll}
-      />
     </div>
   );
 }

@@ -12,14 +12,21 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
+import { NotificationBell } from '@/components/notifications/NotificationBell';
+import { Notification } from '@/hooks/useNotifications';
 
 interface HeaderProps {
   searchQuery: string;
   setSearchQuery: (query: string) => void;
   user?: SupabaseUser | null;
+  notifications: Notification[];
+  unreadCount: number;
+  onMarkAsRead: (id: string) => void;
+  onMarkAllAsRead: () => void;
+  onClearAll: () => void;
 }
 
-export function Header({ searchQuery, setSearchQuery, user }: HeaderProps) {
+export function Header({ searchQuery, setSearchQuery, user, notifications, unreadCount, onMarkAsRead, onMarkAllAsRead, onClearAll }: HeaderProps) {
   const handleSignOut = async () => {
     await supabase.auth.signOut();
     toast.success('Signed out successfully');
@@ -65,6 +72,13 @@ export function Header({ searchQuery, setSearchQuery, user }: HeaderProps) {
 
         {/* Actions */}
         <div className="flex items-center gap-2">
+          <NotificationBell
+            notifications={notifications}
+            unreadCount={unreadCount}
+            onMarkAsRead={onMarkAsRead}
+            onMarkAllAsRead={onMarkAllAsRead}
+            onClearAll={onClearAll}
+          />
           <ThemeToggle />
           
           {user ? (
