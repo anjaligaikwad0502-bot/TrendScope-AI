@@ -103,7 +103,16 @@ function AppContent() {
 
   return (
     <div className="min-h-screen bg-background">
-      <Header searchQuery={searchQuery} setSearchQuery={setSearchQuery} user={user} />
+      <Header
+        searchQuery={searchQuery}
+        setSearchQuery={setSearchQuery}
+        user={user}
+        notifications={notifications}
+        unreadCount={unreadCount}
+        onMarkAsRead={markAsRead}
+        onMarkAllAsRead={markAllAsRead}
+        onClearAll={clearAll}
+      />
       
       {showHero ? (
         <HeroSection onExplore={handleExplore} />
@@ -132,14 +141,6 @@ function AppContent() {
       />
 
       {!showHero && <AIAssistant platformContext={platformContext} />}
-
-      <NotificationBell
-        notifications={notifications}
-        unreadCount={unreadCount}
-        onMarkAsRead={markAsRead}
-        onMarkAllAsRead={markAllAsRead}
-        onClearAll={clearAll}
-      />
     </div>
   );
 }
