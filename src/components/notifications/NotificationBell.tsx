@@ -51,25 +51,29 @@ export function NotificationBell({
   };
 
   return (
-    <Popover open={isOpen} onOpenChange={setIsOpen}>
-      <PopoverTrigger asChild>
-        <Button variant="ghost" size="icon" className="relative">
-          <Bell className="h-5 w-5" />
-          <AnimatePresence>
-            {unreadCount > 0 && (
-              <motion.span
-                initial={{ scale: 0 }}
-                animate={{ scale: 1 }}
-                exit={{ scale: 0 }}
-                className="absolute -top-1 -right-1 h-5 w-5 rounded-full bg-primary text-primary-foreground text-xs font-bold flex items-center justify-center"
-              >
-                {unreadCount > 9 ? '9+' : unreadCount}
-              </motion.span>
-            )}
-          </AnimatePresence>
-        </Button>
-      </PopoverTrigger>
-      <PopoverContent className="w-80 p-0" align="end">
+    <div className="fixed bottom-6 left-6 z-50">
+      <Popover open={isOpen} onOpenChange={setIsOpen}>
+        <PopoverTrigger asChild>
+          <Button
+            size="icon"
+            className="w-14 h-14 rounded-full shadow-lg bg-secondary hover:bg-secondary/90 text-secondary-foreground relative"
+          >
+            <Bell className="h-6 w-6" />
+            <AnimatePresence>
+              {unreadCount > 0 && (
+                <motion.span
+                  initial={{ scale: 0 }}
+                  animate={{ scale: 1 }}
+                  exit={{ scale: 0 }}
+                  className="absolute -top-1 -right-1 h-5 w-5 rounded-full bg-primary text-primary-foreground text-xs font-bold flex items-center justify-center"
+                >
+                  {unreadCount > 9 ? '9+' : unreadCount}
+                </motion.span>
+              )}
+            </AnimatePresence>
+          </Button>
+        </PopoverTrigger>
+        <PopoverContent className="w-80 p-0" align="start" side="top">
         <div className="flex items-center justify-between p-4 border-b">
           <h3 className="font-semibold">Notifications</h3>
           <div className="flex gap-1">
@@ -137,5 +141,6 @@ export function NotificationBell({
         </ScrollArea>
       </PopoverContent>
     </Popover>
+    </div>
   );
 }

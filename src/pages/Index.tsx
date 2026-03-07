@@ -8,9 +8,11 @@ import { ContentFeed } from '@/components/content/ContentFeed';
 import { AnalyticsDashboard } from '@/components/analytics/AnalyticsDashboard';
 import { AuthModal } from '@/components/auth/AuthModal';
 import { AIAssistant } from '@/components/ai/AIAssistant';
+import { NotificationBell } from '@/components/notifications/NotificationBell';
 import { ThemeProvider } from '@/lib/theme';
 import { supabase } from '@/integrations/supabase/client';
 import { contentApi } from '@/lib/api/content';
+import { useNotifications } from '@/hooks/useNotifications';
 import type { User } from '@supabase/supabase-js';
 
 function AppContent() {
@@ -23,6 +25,17 @@ function AppContent() {
   const [showAuthModal, setShowAuthModal] = useState(false);
   const [user, setUser] = useState<User | null>(null);
   const feedRef = useRef<HTMLDivElement>(null);
+  const {
+    notifications,
+    unreadCount,
+    markAsRead,
+    markAllAsRead,
+    clearAll,
+  } = useNotifications({
+    enabled: true,
+    pollInterval: 60000,
+    userInterests: [],
+  });
   const [platformContext, setPlatformContext] = useState<{
     contentSummary: string;
     trendingTags: string[];
@@ -119,6 +132,14 @@ function AppContent() {
       />
 
       {!showHero && <AIAssistant platformContext={platformContext} />}
+
+      <NotificationBell
+        notifications={notifications}
+        unreadCount={unreadCount}
+        onMarkAsRead={markAsRead}
+        onMarkAllAsRead={markAllAsRead}
+        onClearAll={clearAll}
+      />
     </div>
   );
 }
