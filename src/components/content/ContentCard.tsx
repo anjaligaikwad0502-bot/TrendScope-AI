@@ -156,23 +156,6 @@ export function ContentCard({ item, index, isSaved, onToggleSave, onAnalyze }: C
         </div>
       )}
 
-      {/* Analyze Button for papers */}
-      {item.content_type === 'paper' && onAnalyze && (
-        <div className="mb-4">
-          <Button
-            variant="outline"
-            size="sm"
-            className="w-full gap-2 border-primary/30 hover:bg-primary/10 hover:border-primary/50 text-primary"
-            onClick={(e) => {
-              e.stopPropagation();
-              onAnalyze(item);
-            }}
-          >
-            <Brain className="w-4 h-4" />
-            Analyze with ResearchMind
-          </Button>
-        </div>
-      )}
 
       {/* Footer */}
       <div className="flex items-center justify-between pt-4 border-t border-border/50">
