@@ -268,7 +268,6 @@ export function ContentFeed({ activeFilter, searchQuery }: ContentFeedProps) {
                 index={index}
                 isSaved={savedItems.has(item.id)}
                 onToggleSave={toggleSave}
-                onAnalyze={handleAnalyze}
               />
             ))}
           </motion.div>
