@@ -1,0 +1,25 @@
+project_id = "vroxozjieomgtuulhukd"
+
+[functions.fetch-articles]
+verify_jwt = false
+
+[functions.fetch-repos]
+verify_jwt = false
+
+[functions.fetch-papers]
+verify_jwt = false
+
+[functions.fetch-videos]
+verify_jwt = false
+
+[functions.semantic-search]
+verify_jwt = false
+
+[functions.ai-assistant]
+verify_jwt = false
+
+[functions.fetch-tools]
+verify_jwt = false
+
+[functions.research-mind]
+verify_jwt = false
