@@ -23,3 +23,6 @@ verify_jwt = false
 
 [functions.research-mind]
 verify_jwt = false
+
+[functions.topic-analyzer]
+verify_jwt = false
