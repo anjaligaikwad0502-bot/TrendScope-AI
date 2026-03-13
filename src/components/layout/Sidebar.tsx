@@ -8,7 +8,8 @@ import {
   Bookmark, 
   TrendingUp,
   BarChart3,
-  Zap
+  Zap,
+  Swords
 } from 'lucide-react';
 import { cn } from '@/lib/utils';
 
