@@ -6,6 +6,7 @@ import { MobileFilters } from '@/components/layout/MobileFilters';
 import { HeroSection } from '@/components/home/HeroSection';
 import { ContentFeed } from '@/components/content/ContentFeed';
 import { AnalyticsDashboard } from '@/components/analytics/AnalyticsDashboard';
+import { ConflictAnalyzer } from '@/components/analyzer/ConflictAnalyzer';
 import { AuthModal } from '@/components/auth/AuthModal';
 import { AIAssistant } from '@/components/ai/AIAssistant';
 import { ThemeProvider } from '@/lib/theme';
@@ -125,6 +126,8 @@ function AppContent() {
               
               {activeFilter === 'analytics' ? (
                 <AnalyticsDashboard />
+              ) : activeFilter === 'conflict-analyzer' ? (
+                <ConflictAnalyzer />
               ) : (
                 <ContentFeed activeFilter={activeFilter} searchQuery={searchQuery} />
               )}
