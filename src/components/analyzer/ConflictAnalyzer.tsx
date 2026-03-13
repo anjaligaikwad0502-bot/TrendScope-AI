@@ -3,9 +3,11 @@ import { motion } from 'framer-motion';
 import { Search, FileStack, ArrowRight, Sparkles } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
+import { TopicAnalyzer } from './TopicAnalyzer';
 
 export function ConflictAnalyzer() {
   const [selectedMode, setSelectedMode] = useState<'topic' | 'paper' | null>(null);
+  const [activeView, setActiveView] = useState<'select' | 'topic' | 'paper'>('select');
 
   const modes = [
     {
@@ -23,6 +25,10 @@ export function ConflictAnalyzer() {
       features: ['Compare selected papers', 'Side-by-side analysis', 'Methodology review'],
     },
   ];
+
+  if (activeView === 'topic') {
+    return <TopicAnalyzer onBack={() => setActiveView('select')} />;
+  }
 
   return (
     <div className="space-y-6">
@@ -96,10 +102,14 @@ export function ConflictAnalyzer() {
                     className="w-full mt-2"
                     onClick={(e) => {
                       e.stopPropagation();
-                      setSelectedMode(mode.id);
+                      if (isSelected) {
+                        setActiveView(mode.id);
+                      } else {
+                        setSelectedMode(mode.id);
+                      }
                     }}
                   >
-                    {isSelected ? 'Selected' : 'Select'}
+                    {isSelected ? 'Continue' : 'Select'}
                     <ArrowRight className="w-4 h-4 ml-1" />
                   </Button>
                 </div>
@@ -117,8 +127,8 @@ export function ConflictAnalyzer() {
         >
           <p className="text-sm text-muted-foreground">
             {selectedMode === 'topic'
-              ? '🔍 Topic Analyzer mode selected — enter a topic to auto-discover and analyze papers.'
-              : '📄 Paper Analyzer mode selected — select papers to compare and find conflicts.'}
+              ? '🔍 Topic Analyzer mode selected — click "Continue" to enter a topic and auto-discover papers.'
+              : '📄 Paper Analyzer mode selected — click "Continue" to select papers to compare.'}
           </p>
         </motion.div>
       )}
