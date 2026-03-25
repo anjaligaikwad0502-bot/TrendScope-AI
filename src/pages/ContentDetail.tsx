@@ -26,6 +26,8 @@ import { cn } from '@/lib/utils';
 import { ThemeProvider } from '@/lib/theme';
 import { Header } from '@/components/layout/Header';
 import { toast } from 'sonner';
+import { useAutoConflictAnalysis } from '@/hooks/useAutoConflictAnalysis';
+import { AutoConflictOverlay } from '@/components/content/AutoConflictOverlay';
 
 const typeIcons = {
   article: FileText,
@@ -56,6 +58,7 @@ function ContentDetailPage() {
   const [isSaved, setIsSaved] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
   const [isLoading, setIsLoading] = useState(true);
+  const conflictAnalysis = useAutoConflictAnalysis(item);
 
   useEffect(() => {
     const fetchItem = async () => {
@@ -336,6 +339,15 @@ function ContentDetailPage() {
             </p>
           </div>
         </motion.div>
+
+        {/* Auto Conflict Analysis - above Tags */}
+        {(item.content_type === 'paper' || item.content_type === 'article') && (
+          <AutoConflictOverlay
+            result={conflictAnalysis.result}
+            loading={conflictAnalysis.loading}
+            error={conflictAnalysis.error}
+          />
+        )}
 
         {/* Tags */}
         <motion.div
