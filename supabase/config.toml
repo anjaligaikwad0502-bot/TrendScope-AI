@@ -29,3 +29,6 @@ verify_jwt = false
 
 [functions.paper-analyzer]
 verify_jwt = false
+
+[functions.notification-agent]
+verify_jwt = false
