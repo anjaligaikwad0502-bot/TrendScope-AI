@@ -35,3 +35,9 @@ verify_jwt = false
 
 [functions.auto-conflict-analysis]
 verify_jwt = false
+
+[functions.trend-discovery]
+verify_jwt = false
+
+[functions.insight-generator]
+verify_jwt = false

@@ -54,7 +54,7 @@ export function ContentFeed({ activeFilter, searchQuery }: ContentFeedProps) {
       try {
         let data: ContentItem[] = [];
         
-        if (activeFilter === 'all' || activeFilter === 'trending') {
+        if (activeFilter === 'all' || activeFilter === 'trending' || activeFilter.startsWith('domain-') || activeFilter === 'saved') {
           data = await contentApi.fetchAllContent();
         } else if (activeFilter === 'article') {
           data = await contentApi.fetchArticles();
@@ -66,8 +66,6 @@ export function ContentFeed({ activeFilter, searchQuery }: ContentFeedProps) {
           data = await contentApi.fetchVideos();
         } else if (activeFilter === 'tool') {
           data = await contentApi.fetchTools();
-        } else if (activeFilter === 'saved') {
-          data = await contentApi.fetchAllContent();
         }
         
         setContent(data);
@@ -124,6 +122,12 @@ export function ContentFeed({ activeFilter, searchQuery }: ContentFeedProps) {
     }
 
     let items = content;
+
+    // Filter by domain
+    if (activeFilter.startsWith('domain-')) {
+      const domainId = activeFilter.replace('domain-', '');
+      items = items.filter(item => item.domain === domainId);
+    }
 
     // Filter saved items
     if (activeFilter === 'saved') {

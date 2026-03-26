@@ -9,7 +9,13 @@ import {
   TrendingUp,
   BarChart3,
   Zap,
-  ScanSearch
+  ScanSearch,
+  Cpu,
+  HeartPulse,
+  Sprout,
+  Landmark,
+  Globe2,
+  BookOpen
 } from 'lucide-react';
 import { cn } from '@/lib/utils';
 
@@ -25,6 +31,15 @@ const filters = [
   { id: 'paper', label: 'Papers', icon: GraduationCap, color: 'text-purple-500' },
   { id: 'video', label: 'Videos', icon: Video, color: 'text-red-500' },
   { id: 'tool', label: 'Tools', icon: Wrench, color: 'text-orange-500' },
+];
+
+const domains = [
+  { id: 'domain-ai-tech', label: '🤖 AI & Tech', icon: Cpu, color: 'text-cyan-500' },
+  { id: 'domain-healthcare', label: '🏥 Healthcare', icon: HeartPulse, color: 'text-pink-500' },
+  { id: 'domain-agriculture', label: '🌱 Agriculture', icon: Sprout, color: 'text-lime-500' },
+  { id: 'domain-finance', label: '💰 Finance', icon: Landmark, color: 'text-yellow-500' },
+  { id: 'domain-climate', label: '🌍 Climate', icon: Globe2, color: 'text-emerald-500' },
+  { id: 'domain-education', label: '🎓 Education', icon: BookOpen, color: 'text-indigo-500' },
 ];
 
 const extras = [
@@ -79,7 +94,36 @@ export function Sidebar({ activeFilter, setActiveFilter }: SidebarProps) {
           </nav>
         </div>
 
-        {/* Extras */}
+        {/* Domains */}
+        <div className="glass rounded-xl p-4">
+          <h3 className="text-xs font-semibold text-muted-foreground uppercase tracking-wider mb-3">
+            🌍 Domains
+          </h3>
+          <nav className="space-y-1">
+            {domains.map((domain) => {
+              const Icon = domain.icon;
+              const isActive = activeFilter === domain.id;
+              
+              return (
+                <button
+                  key={domain.id}
+                  onClick={() => setActiveFilter(domain.id)}
+                  className={cn(
+                    "w-full flex items-center gap-3 px-3 py-2 rounded-lg text-sm font-medium transition-all",
+                    isActive 
+                      ? "bg-primary/10 text-primary" 
+                      : "text-muted-foreground hover:text-foreground hover:bg-secondary/50"
+                  )}
+                >
+                  <Icon className={cn("w-4 h-4", isActive ? "text-primary" : domain.color)} />
+                  {domain.label}
+                </button>
+              );
+            })}
+          </nav>
+        </div>
+
+        {/* Quick Access */}
         <div className="glass rounded-xl p-4">
           <h3 className="text-xs font-semibold text-muted-foreground uppercase tracking-wider mb-3">
             Quick Access
@@ -108,38 +152,32 @@ export function Sidebar({ activeFilter, setActiveFilter }: SidebarProps) {
           </nav>
         </div>
 
-        {/* AI Stats */}
+        {/* AI Agents Status */}
         <div className="glass rounded-xl p-4 gradient-border">
           <div className="flex items-center gap-2 mb-3">
             <div className="w-8 h-8 rounded-lg bg-primary/10 flex items-center justify-center">
               <Zap className="w-4 h-4 text-primary" />
             </div>
             <div>
-            <p className="text-xs font-medium text-muted-foreground">AI Agents Active</p>
-              <p className="text-lg font-bold text-foreground">5 / 5</p>
+              <p className="text-xs font-medium text-muted-foreground">AI Agents Active</p>
+              <p className="text-lg font-bold text-foreground">7 / 7</p>
             </div>
           </div>
           <div className="space-y-2">
-            <div className="flex justify-between text-xs">
-              <span className="text-muted-foreground">Trend Hunter</span>
-              <span className="text-green-500">● Active</span>
-            </div>
-            <div className="flex justify-between text-xs">
-              <span className="text-muted-foreground">Content Processor</span>
-              <span className="text-green-500">● Active</span>
-            </div>
-            <div className="flex justify-between text-xs">
-              <span className="text-muted-foreground">Personalizer</span>
-              <span className="text-green-500">● Active</span>
-            </div>
-            <div className="flex justify-between text-xs">
-              <span className="text-muted-foreground">Notifier</span>
-              <span className="text-green-500">● Active</span>
-            </div>
-            <div className="flex justify-between text-xs">
-              <span className="text-muted-foreground">Tool Tracker</span>
-              <span className="text-green-500">● Active</span>
-            </div>
+            {[
+              { name: 'Domain Classifier', emoji: '🧠' },
+              { name: 'Trend Discovery', emoji: '📊' },
+              { name: 'Conflict Analyzer', emoji: '⚖️' },
+              { name: 'Insight Generator', emoji: '🧠' },
+              { name: 'Notification Agent', emoji: '🔔' },
+              { name: 'Content Processor', emoji: '📦' },
+              { name: 'Personalizer', emoji: '🎯' },
+            ].map(agent => (
+              <div key={agent.name} className="flex justify-between text-xs">
+                <span className="text-muted-foreground">{agent.emoji} {agent.name}</span>
+                <span className="text-green-500">● Active</span>
+              </div>
+            ))}
           </div>
         </div>
       </div>

@@ -1,9 +1,11 @@
 import { supabase } from '@/integrations/supabase/client';
+import { classifyDomain, type ContentDomain } from '@/lib/domainClassifier';
 
 export interface ContentItem {
   id: string;
   title: string;
   content_type: 'article' | 'repo' | 'paper' | 'video' | 'tool';
+  domain: ContentDomain;
   summary: string;
   key_insights: string[];
   tags: string[];
@@ -23,6 +25,13 @@ export interface ContentItem {
   arxiv_id?: string;
   tool_category?: string;
   pricing?: string;
+}
+
+function enrichWithDomain(items: any[]): ContentItem[] {
+  return items.map(item => ({
+    ...item,
+    domain: item.domain || classifyDomain(item.title || '', item.summary || '', item.tags || []),
+  }));
 }
 
 export interface SemanticSearchResult {
@@ -52,7 +61,7 @@ export const contentApi = {
         return [];
       }
       
-      return data?.data || [];
+      return enrichWithDomain(data?.data || []);
     } catch (error) {
       console.error('Error fetching articles:', error);
       return [];
@@ -70,7 +79,7 @@ export const contentApi = {
         return [];
       }
       
-      return data?.data || [];
+      return enrichWithDomain(data?.data || []);
     } catch (error) {
       console.error('Error fetching repos:', error);
       return [];
@@ -88,7 +97,7 @@ export const contentApi = {
         return [];
       }
       
-      return data?.data || [];
+      return enrichWithDomain(data?.data || []);
     } catch (error) {
       console.error('Error fetching papers:', error);
       return [];
@@ -106,7 +115,7 @@ export const contentApi = {
         return [];
       }
       
-      return data?.data || [];
+      return enrichWithDomain(data?.data || []);
     } catch (error) {
       console.error('Error fetching videos:', error);
       return [];
@@ -122,7 +131,7 @@ export const contentApi = {
         return [];
       }
       
-      return data?.data || [];
+      return enrichWithDomain(data?.data || []);
     } catch (error) {
       console.error('Error fetching tools:', error);
       return [];
