@@ -15,6 +15,7 @@ import {
   Sparkles
 } from 'lucide-react';
 import { ContentItem } from '@/lib/api/content';
+import { getDomainInfo } from '@/lib/domainClassifier';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
@@ -110,9 +111,18 @@ export function ContentCard({ item, index, isSaved, onToggleSave }: ContentCardP
       </div>
 
       {/* Title */}
-      <h3 className="text-lg font-semibold mb-3 group-hover:text-primary transition-colors line-clamp-2">
+      <h3 className="text-lg font-semibold mb-2 group-hover:text-primary transition-colors line-clamp-2">
         {item.title}
       </h3>
+
+      {/* Domain Badge */}
+      {item.domain && (
+        <div className="mb-3">
+          <Badge variant="outline" className="text-xs border-border/50">
+            {getDomainInfo(item.domain).emoji} {getDomainInfo(item.domain).label}
+          </Badge>
+        </div>
+      )}
 
       {/* Summary */}
       <p className="text-sm text-muted-foreground mb-4 line-clamp-3">
