@@ -54,21 +54,9 @@ export function ContentFeed({ activeFilter, searchQuery }: ContentFeedProps) {
       try {
         let data: ContentItem[] = [];
         
-        if (activeFilter === 'all' || activeFilter === 'trending') {
+        if (activeFilter === 'all' || activeFilter === 'trending' || activeFilter.startsWith('domain-')) {
           data = await contentApi.fetchAllContent();
         } else if (activeFilter === 'article') {
-          data = await contentApi.fetchArticles();
-        } else if (activeFilter === 'repo') {
-          data = await contentApi.fetchRepos();
-        } else if (activeFilter === 'paper') {
-          data = await contentApi.fetchPapers();
-        } else if (activeFilter === 'video') {
-          data = await contentApi.fetchVideos();
-        } else if (activeFilter === 'tool') {
-          data = await contentApi.fetchTools();
-        } else if (activeFilter === 'saved') {
-          data = await contentApi.fetchAllContent();
-        }
         
         setContent(data);
       } catch (err) {
@@ -124,6 +112,12 @@ export function ContentFeed({ activeFilter, searchQuery }: ContentFeedProps) {
     }
 
     let items = content;
+
+    // Filter by domain
+    if (activeFilter.startsWith('domain-')) {
+      const domainId = activeFilter.replace('domain-', '');
+      items = items.filter(item => item.domain === domainId);
+    }
 
     // Filter saved items
     if (activeFilter === 'saved') {
