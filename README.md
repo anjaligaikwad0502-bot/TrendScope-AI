@@ -1,6 +1,6 @@
 # 🚀 TrendScope AI
 
-### AI-Powered Tech Trend Intelligence Platform
+## AI-Powered Tech Trend Intelligence Platform
 
 🌐 **Live Demo:** [https://trendscode-ai.netlify.app/](https://trendscode-ai.netlify.app/)
 
